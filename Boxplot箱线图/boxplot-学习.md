@@ -1,4 +1,4 @@
-# boxplot-学习
+# boxplot - 学习
 
 ## 通过profile文件配置输入数据
 ``` rscript
