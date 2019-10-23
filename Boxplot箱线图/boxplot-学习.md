@@ -18,8 +18,9 @@ M;20;22;23;19.2;21.2;21.6;18;20;19
 N;21;23;24;20.2;22.2;22.6;19;21;20
 O;22;24;25;21.2;23.2;23.6;20;22;21"
 ```
-
+``` rscript
 profile_text <- read.table(text=profile, header=T, row.names=1, quote="",sep=";", check.names=F)
+```
 
 ## 载入所需的绘图包
 ``` rscript
