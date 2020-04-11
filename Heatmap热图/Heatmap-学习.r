@@ -1,11 +1,17 @@
 # Heatmap - 学习
 
 ## 热图数据的转换
-如果使用原始相对丰度或表达值，范围通常为0-100或0-1000000，而大部分的OTU或基因较低，做出的图会使绝大数据的数量颜色处于低丰度区，很难发现规律；因此需要数据变换，常用的方法有两类：  
+如果使用原始相对丰度或表达值，范围通常为0-100或0-1000000，而大部分的OTU或基因较低，做出的图会使绝大数据的  
+数量颜色处于低丰度区，很难发现规律；因此需要数据变换，常用的方法有两类：  
 - log2(x+1) , x为丰度或表达值
-  - 为什么要原始值+1，是为了保证结果仍为正值，因为2的0次方为1；为什么要使用log变换，以log2为例，0-1000的表达范围，经变化为0-10的范围，颜色梯度范围更容易使人与数值建立对应关系。为什么常用log2对数变化，因为筛选差异的标准通常为两倍，log2对数变化后，每相差1的两个值都有两倍差异，选择目标很方便；有时也会根据具体情况，选择ln， log10等转换方式；
+  - 为什么要原始值+1，是为了保证结果仍为正值，因为2的0次方为1；为什么要使用log变换，以log2为例，0-1000的  
+    表达范围，经变化为0-10的范围，颜色梯度范围更容易使人与数值建立对应关系。为什么常用log2对数变化，因为  
+    筛选差异的标准通常为两倍，log2对数变化后，每相差1的两个值都有两倍差异，选择目标很方便；有时也会根据具体  
+    情况，选择ln， log10等转换方式；
 - Z-score标准化
-  - 标准分数（standard score）也叫z分数（z-score）,是一个分数与平均数的差再除以标准差的过程。用公式表示为：z=(x-μ)/σ。其中x为某一具体分数，μ为平均数，σ为标准差。此种方法可以使有差异且稳定变化的两组明显区分为不同的颜色，但却丢失了原始相对丰度、差异倍数的信息。但由于结果比较美观，规律明显，使用较多。
+  - 标准分数（standard score）也叫z分数（z-score）,是一个分数与平均数的差再除以标准差的过程。用公式  
+    表示为：z=(x-μ)/σ。其中x为某一具体分数，μ为平均数，σ为标准差。此种方法可以使有差异且稳定变化的两组明显  
+    区分为不同的颜色，但却丢失了原始相对丰度、差异倍数的信息。但由于结果比较美观，规律明显，使用较多。
 
 ## 常用工具
 常用R的`heatmap`和`pheatmap`包；  
@@ -19,7 +25,8 @@ data <- c(1:6,6:1,6:1,1:6, (6:1)/10,(1:6)/10,(1:6)/10,(6:1)/10,1:6,6:1,6:1,1:6, 
 data <- as.data.frame(matrix(data, ncol=12, byrow=T))
 
 # 增加列名
-colnames(data) <- c("Zygote","2_cell","4_cell","8_cell","Morula","ICM","ESC","4 week PGC","7 week PGC","10 week PGC","17 week PGC", "OOcyte")
+colnames(data) <- c("Zygote","2_cell","4_cell","8_cell","Morula","ICM","ESC","4 week PGC","7 week PGC",
+                    "10 week PGC","17 week PGC", "OOcyte")
 # 增加行名
 rownames(data) <- paste("Gene", 1:8, sep="_")
 ```
@@ -68,8 +75,10 @@ p
 ```
 # theme: 是处理图美观的一个函数，可以调整横纵轴label的选择、图例的位置等。
 # 这里选择X轴标签45度。
-# hjust和vjust调整标签的相对位置，具体见 <https://stackoverflow.com/questions/7263849/what-do-hjust-and-vjust-do-when-making-a-plot-using-ggplot>。
-# 简单说，hjust是水平的对齐方式，0为左，1为右，0.5居中，0-1之间可以取任意值。vjust是垂直对齐方式，0底对齐，1为顶对齐，0.5居中，0-1之间可以取任意值。
+# hjust和vjust调整标签的相对位置，具体见 <https://stackoverflow.com/questions/7263849/what-do-hjust-  
+# and-vjust-do-when-making-a-plot-using-ggplot>。
+# 简单说，hjust是水平的对齐方式，0为左，1为右，0.5居中，0-1之间可以取任意值。vjust是垂直对齐方式，0底对齐，  
+1为顶对齐，0.5居中，0-1之间可以取任意值。
 p <- p + theme(axis.text.x=element_text(angle=45,hjust=1, vjust=1))
 p
 ```
@@ -93,7 +102,9 @@ p
 ```
 合并以上命令，就得到了下面这个看似复杂的绘图命令。
 ```
-p <- ggplot(data_m, aes(x=variable,y=ID)) + xlab("samples") + theme_bw() + theme(panel.grid.major = element_blank()) + theme(legend.key=element_blank())  + theme(axis.text.x=element_text(angle=45,hjust=1, vjust=1)) + theme(legend.position="top") +  geom_tile(aes(fill=value)) + scale_fill_gradient(low = "white", high = "red")
+p <- ggplot(data_m, aes(x=variable,y=ID)) + xlab("samples") + theme_bw() + theme(panel.grid.major = element_blank()) 
++ theme(legend.key=element_blank())  + theme(axis.text.x=element_text(angle=45,hjust=1, vjust=1)) 
++ theme(legend.position="top") +  geom_tile(aes(fill=value)) + scale_fill_gradient(low = "white", high = "red")
 ```
 
 ## 保存图形
