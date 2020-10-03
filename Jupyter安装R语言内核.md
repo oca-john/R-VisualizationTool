@@ -53,3 +53,9 @@ pip install jupyterlab
 ```
 - 在conda之外安装Rstudio；
 - 在Rstudio中安装R内核开发包；
+
+```
+install.packages(‘devtools’)    # devtools需要手动解决依赖
+devtools::install_github('IRkernel/IRkernel')
+IRkernel::installspec()
+```
