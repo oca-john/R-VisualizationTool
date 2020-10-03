@@ -34,7 +34,22 @@ pip install jupyterlab
 
 ### R内核开发包
 ```
-install.packages('devtools')
+install.packages(c(‘repr’, ‘IRdisplay’, ‘evaluate’, ‘crayon’, ‘pbdZMQ’, ‘devtools’, ‘uuid’, ‘digest’))    # 逐个安装可以通过，devtools需要手动解决依赖
 devtools::install_github('IRkernel/IRkernel')
 IRkernel::installspec()
 ```
+
+在R中安装devtools包时，可能会遇见“无法将xx包移动到xx位置”的情况。
+
+这是由于R临时下载的包默认加了锁，但由于未知原因用户无法获得权限来操作该包。该情况最容易想到用Root权限实现操作，但实际上Root用户所在的是完全不同的环境，无法继续普通用户的操作。
+
+在网站：
+
+https://askubuntu.com/questions/1163130/permission-denied-while-installing-r-package
+
+和
+
+http://kanosuke.hatenadiary.jp/entry/2019/05/13/210000
+
+查到正解，install.packages("Rcpp"， dependencies=TRUE， INSTALL_opts = c('-no-lock'))的方式安装包，在安装参数中标注以非锁定方式安装。
+
