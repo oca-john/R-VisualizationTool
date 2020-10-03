@@ -20,7 +20,7 @@ https://askubuntu.com/questions/1163130/permission-denied-while-installing-r-pac
 
 http://kanosuke.hatenadiary.jp/entry/2019/05/13/210000
 
-查到正解，install.packages("Rcpp"， dependencies=TRUE， INSTALL_opts = c('-no-lock'))的方式安装包，在安装参数中标注以非锁定方式安装。
+查到正解，`install.packages("Rcpp"， dependencies=TRUE， INSTALL_opts = c('-no-lock'))` 的方式安装包，在安装参数中标注以非锁定方式安装。
 
 
 ## 1.Anaconda方式
