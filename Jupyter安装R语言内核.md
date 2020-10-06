@@ -4,7 +4,7 @@
 ## 0.系统内安装R内核开发包(opensuse, wsl2-opensuse测试通过)
 ```
 install.packages("repr","IRdisplay","evaluate","crayon","pbdZMQ","devtools","uuid","digest")    # 逐个安装可以通过，devtools需要手动解决依赖
-devtools::install_github('IRkernel/IRkernel')
+devtools::install_github("IRkernel/IRkernel")
 IRkernel::installspec()
 ```
 
